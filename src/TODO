@@ -1,0 +1,18 @@
+完成CommuFunction中的sendRegisterInfo方法
+完成服务端对应的处理过程
+完成保存UserInfoList
+完成提醒其他节点获取信息
+
+
+日志
+    等待补完其他操作的日志内容
+
+通信
+    用户注册方法 present、通信
+    用户列表同步方法 present类
+    将用户列表存储到硬盘方法 model类
+
+交易
+
+
+贷款

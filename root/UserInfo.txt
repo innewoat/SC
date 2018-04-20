@@ -1,0 +1,5 @@
+root 123456 kernel 127.0.0.1 3000
+upstream 123456 enterprise 127.0.0.1 3001
+downstream 123456 enterprise 127.0.0.1 3002
+bank 123456 bank 127.0.0.1 3003
+logistics 123456 logistics 127.0.0.1 3004

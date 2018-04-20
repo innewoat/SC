@@ -1,0 +1,30 @@
+通信
+    未登录1向核心2请求用户列表 presenter中的pullInfo方法
+        1通过2的socket建立socket
+                                2启动对应的处理线程
+                                2听
+        1发送"ASKUSERINFO"
+        1听
+                                2收到内容后，将UserInfo发送过去
+                                2发送完成后关闭
+        1接收内容并存到硬盘
+        1关闭socket
+
+    注册用户
+    未登录1 核心2
+        1通过2的socket建立socket
+                                2启动对应的处理线程
+        1发送"ADDUSER %username %userpasswd %userstatus %useraddr %userport"
+                                2接收到内容后，在自身列表中添加新用户
+                                2将新列表保存
+                                2调用推送方法
+        1关闭socket
+                                2发送完成后关闭
+
+    推送用户列表
+
+    添加交易
+
+    添加贷款
+
+    共识过程
