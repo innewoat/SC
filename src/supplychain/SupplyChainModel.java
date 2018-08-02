@@ -13,9 +13,14 @@ class SupplyChainModel {
     private String userStatus = "Not_Log_In";
 
     ObservableList<ChainNodeInfo> userList;
+    TransactionBlock transactionBlock;
+    LoanModeABlock loanModeABlock;
+    LoanModeBBlock loanModeBBlock;
 
     private String kernelAddress = "127.0.0.1";
     private int kernelPort = 3000;
+
+    public static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
 
     public String getUserName() {
         return userName;
@@ -53,9 +58,39 @@ class SupplyChainModel {
         return userList;
     }
 
+    public ObservableList<TransactionInfo> getTransactionInfoList(){return transactionBlock.transactionInfos;}
+
+    public ObservableList<LoanModeAInfo> getLoanModeAInfoList(){
+        return loanModeABlock.loanModeAInfos;
+    }
+
+    public ObservableList<LoanModeBInfo> getLoanModeBInfoList(){
+        return loanModeBBlock.loanModeBInfos;
+    }
+
+    public void addTransactionInfo(TransactionInfo n){
+        transactionBlock.addOrder(n);
+    }
+
+    public void addLoanAModeInfo(LoanModeAInfo n){
+        loanModeABlock.addOrder(n);
+    }
+
+    public void addLoanBModeInfo(LoanModeBInfo n){
+        loanModeBBlock.addOrder(n);
+    }
+
+    public ChainNodeInfo getKernelInfo() {
+        return getUserInfo("root");
+    }
+
     public ChainNodeInfo getCurUserInfo() {
+        return getUserInfo(this.userName);
+    }
+
+    public ChainNodeInfo getUserInfo(String userName) {
         for (ChainNodeInfo c : userList) {
-            if (c.getUserName().equals(this.userName))
+            if (c.getUserName().equals(userName))
                 return c;
         }
         return null;
@@ -67,8 +102,7 @@ class SupplyChainModel {
     }
 
     public String buildLog(String raw) {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String date = df.format(new Date());
+        String date = sdf.format(new Date());
         String n = date + " " + raw + "\n";
         try {
             if (!userName.equals("Not_Log_In")) {
@@ -86,11 +120,11 @@ class SupplyChainModel {
         return n;
     }
 
-    public int initializeUser(String name) {
+    public void initializeUserIntoList(String name) {
         try {
             FileReader fr = new FileReader(name + File.separator + "UserInfo.txt");
 
-            //userList = FXCollections.observableArrayList();
+            userList.clear();
             String uname;
             String upasswd;
             String ustatus;
@@ -112,11 +146,22 @@ class SupplyChainModel {
 
             br.close();
             fr.close();
-
-            return 0;
         } catch (Exception e) {
-            System.out.println(e);
-            return -1;
+            e.printStackTrace();
+        }
+    }
+
+    public void initializeUserStatus() {
+        setUserStatus(getCurUserInfo().getUserStatus());
+    }
+
+    public void initializeBlocks() {
+        try {
+            transactionBlock = new TransactionBlock(userName);
+            loanModeABlock=new LoanModeABlock(userName);
+            loanModeBBlock=new LoanModeBBlock(userName);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -57,6 +57,6 @@ public class ChainNodeInfo {
 
     @Override
     public String toString() {
-        return "userName = " + userName + "\tuserPasswd = " + userPasswd + "\tuserStatus = " + userStatus + "\tuserAddress = " + userAddress + "\tuserPort = " + userPort;
+        return  userName + " " + userPasswd + " " + userStatus + " " + userAddress + " " + userPort + "\n";
     }
 }

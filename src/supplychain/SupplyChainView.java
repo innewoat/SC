@@ -57,6 +57,7 @@ class SupplyChainView {
     }
 
     public void showLogInView() {
+        curView=1;
         logInView.clear();
         if (logInView.getScene() != null)
             stage.setScene(logInView.getScene());
@@ -67,15 +68,18 @@ class SupplyChainView {
     }
 
     public void showMainForm() {
+        curView=2;
         if (mainForm.getScene() != null)
             stage.setScene(mainForm.getScene());
         else {
             Scene scene = new Scene(mainForm, 800, 600);
             stage.setScene(scene);
         }
+        mainForm.setActions(model.getUserStatus());
     }
 
     public void showRegisterView() {
+        curView=3;
         registerView.clear();
         if (registerView.getScene() != null)
             stage.setScene(registerView.getScene());
